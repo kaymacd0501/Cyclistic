@@ -1,0 +1,149 @@
+--Complete analysis from data_for_analysis table
+
+--How many Cyclistic users are casual riders vs subscribers?
+
+SELECT
+DISTINCT member_casual,
+COUNT (member_casual) AS numb_of_members,
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+GROUP BY member_casual
+
+--Of the 5746999 rides, 2346630 are from casual users, while 3400369 pay for the annual membership.
+
+--What type of bikes do casual users prefer?
+
+SELECT
+rideable_type,
+COUNT(rideable_type) AS numb_of_rides
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'casual'
+GROUP BY rideable_type
+ORDER BY numb_of_rides DESC
+
+--Casual users most often use electric bikes.
+
+--What type of bikes do annual subscribers prefer?
+SELECT
+rideable_type,
+COUNT(rideable_type) AS numb_of_rides
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'member'
+GROUP BY rideable_type
+ORDER BY numb_of_rides DESC
+--Annual subscribers most often use classic bikes. They do not use docked bikes.
+
+--On what day of the week do casual riders most use Cyclistic?
+SELECT
+day_of_week,
+COUNT (day_of_week) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'casual'
+GROUP BY day_of_week
+ORDER BY numb_of_rides DESC
+
+--Casual riders use Cyclistic most often on Saturdays, followed by Sunday and Friday. The least popular day is Tuesday.
+
+--On what day of the week do casual users have the longest ride times?
+
+SELECT
+day_of_week,
+COUNT (day_of_week) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'casual'
+GROUP BY day_of_week
+ORDER BY avg_ride_length DESC
+
+--Casual riders have the longest average ride time on Sundays, followed by Saturdays and Mondays. The shortest ride times take place on Wednesdays.
+
+--On what day of the week do annual subscribers most use Cyclistic?
+SELECT
+day_of_week,
+COUNT (day_of_week) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'member'
+GROUP BY day_of_week
+ORDER BY numb_of_rides DESC
+
+--Annual subscribers most often use Cyclistic on Thursdays, followed by Wednesday and Tuesday. The least popular day is Sunday.
+
+--On what day of the week do annual subscribers have the longest ride times?
+SELECT
+day_of_week,
+COUNT (day_of_week) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'member'
+GROUP BY day_of_week
+ORDER BY avg_ride_length DESC
+
+--Annual subscribers have the longest ride times on Saturdays, followed by Sundays and Fridays. The shortest rides take place on Wednesdays.
+
+--What time of year is the most popular for all Cyclistic members?
+SELECT
+month, 
+COUNT(month) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+GROUP BY month
+ORDER BY numb_of_rides DESC
+
+--Across all member types, the most popular months are July, August, and June (summer). The least popular months are December, February, and January (winter).
+
+--Does this vary between casual users and annual subscribers?
+SELECT
+month, 
+COUNT(month) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'casual'
+GROUP BY month
+ORDER BY numb_of_rides DESC
+
+SELECT
+month, 
+COUNT(month) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'member'
+GROUP BY month
+ORDER BY numb_of_rides DESC
+
+--Both casual riders and annual subscribers most prefer using Cyclistic in the summer, and use Cyclistic the least in the winter.
+
+--At what time of year do the longest rides take place?
+SELECT
+month, 
+COUNT(month) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+GROUP BY month
+ORDER BY avg_ride_length DESC
+
+--Across all member types, the longest rides take place in May, June, and July (spring/summer). The shortest average rides take place in January, November, and Feburuary (fall/winter).
+
+--Does this vary between casual members and annual subscribers?
+--At what time of year do the longest rides take place?
+SELECT
+month, 
+COUNT(month) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'casual'
+GROUP BY month
+ORDER BY avg_ride_length DESC
+
+--Casual members have the longest rides in March, May, and January (winter/spring). They have the shortest rides in November, September, and October (fall).
+
+SELECT
+month, 
+COUNT(month) AS numb_of_rides,
+AVG(ride_length) AS avg_ride_length
+FROM `cyclistic-project-369200.Divvy_Trip_Data.data_for_analysis`
+WHERE member_casual = 'member'
+GROUP BY month
+ORDER BY avg_ride_length DESC
+
+--Annual subscribers have the longest ride length in June, July, and August (summer). The have the shortest rides in November, February, and December (fall/winter).
